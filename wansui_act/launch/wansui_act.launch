@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Arguments for jetauto_controller -->
+  <arg name="max_linear"      default="0.7"/>
+  <arg name="max_angular"     default="3.5"/>
+  <arg name="cmd_vel"         default="jetauto_controller/cmd_vel"/>
+  <arg name="remap_cmd_vel"   default="$(arg cmd_vel)"/>
+  <arg name="base_frame"      default="base_link"/>
+
+  <!-- Start hmore_face node -->
+    <include file="$(find hmore_face)/launch/hmore_face.launch" />
+
+  <!-- Start battery monitor -->
+    <node name="battery_mon" pkg="wansui_act" type="battery_mon.py" required="true" output="screen" />
+
+  <!-- Start servo driver -->
+    <include file="$(find hiwonder_servo_controllers)/launch/controller_manager.launch"/> 
+
+  <!-- Start joint monitor -->
+    <include file="$(find hiwonder_servo_controllers)/launch/joint_states_publisher.launch"/>
+
+  <!-- Initialize arm pose -->
+    <node name="init_pose" pkg="jetauto_slam" type="init_pose.py" output="screen"/>
+
+  <!-- Start chassis driver -->
+    <include file="$(find jetauto_controller)/launch/jetauto_controller.launch" />
+
+  <!-- Start IMU and odometry -->
+    <include file="$(find jetauto_controller)/launch/odom_publish.launch" />
+
+  <!-- Start wansui_act node -->
+    <node name="wansui_act" pkg="wansui_act" type="wansui_act" cwd="node" output="screen" required="true" />
+</launch>

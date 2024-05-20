@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /home/jetauto/Wansui
+roslaunch wansui_act wansui_act.launch 2>/dev/null

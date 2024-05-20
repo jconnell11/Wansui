@@ -1,0 +1,14 @@
+[Unit]
+Description=Buttons & Battery
+
+[Service]
+Type=simple
+User=jetauto
+Restart=always
+RestartSec=5
+ExecStart=/home/jetauto/ros_env /usr/bin/python3 /home/jetauto/Wansui/ja_buttons.py
+StandardOutput=null
+StandardError=null
+
+[Install]
+WantedBy=multi-user.target

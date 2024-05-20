@@ -1,0 +1,37 @@
+<package format="3">
+  <name>wansui_act</name>
+  <version>1.0.0</version>
+  <description> 
+     Master ROS node for ALIA reasoning system running on JetAuto Pro robot.
+  </description>
+  <author>Jonathan H. Connell/jconnell@alum.mit.edu</author>
+  <maintainer email="jconnell@alum.mit.edu">Jonathan H. Connell</maintainer>
+  <license>Apache 2.0</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend condition="$ROS_PYTHON_VERSION == 2">python-setuptools</buildtool_depend>
+  <buildtool_depend condition="$ROS_PYTHON_VERSION == 3">python3-setuptools</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+  <build_depend>roslib</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>roscpp_serialization</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>hiwonder_servo_msgs</build_depend>
+  <build_depend>uuid</build_depend>
+
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>roscpp_serialization</exec_depend>
+  <exec_depend>roslib</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>hiwonder_servo_msgs</exec_depend>
+  <exec_depend>uuid</exec_depend>
+</package>
+
+

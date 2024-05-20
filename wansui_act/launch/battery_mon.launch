@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="battery_mon" pkg="wansui_act" type="battery_mon.py" required="true" output="screen" />
+</launch>
+
