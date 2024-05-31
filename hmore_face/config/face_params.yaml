@@ -1,5 +1,5 @@
-face_width  : 800            # pixels
-face_height : 600
+face_width  : 960            # pixels
+face_height : 720
 face_model  : "GiGo"         # no eyelashes
 
 face_skin   : 0x60A060       # light green head
