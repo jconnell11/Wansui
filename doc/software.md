@@ -1,6 +1,8 @@
 ## Software Installation
 
-The easiest approach is just to copy a complete system image onto a new [SD card](https://www.amazon.com/dp/B0B7NVMBPL) (32/64GB microSDHX UHS-1). Note that this requires some disassembly of the JetAuto robot to get at the card slot. Contact me if you are interested in access to the image. You might want to upgrade to 64GB anyhow, as most of the original 32GB is filled up. Otherwise, there is a substantial list of downloads, substitutions, and configurations as listed below. Eventually there should be an installer script for most of this ...
+The easiest approach is just to copy a complete system image onto a new [SD card](https://www.amazon.com/dp/B09X7C7LL1) ($11). You might want to upgrade to 64GB anyhow, as most of the original 32GB is filled up and the A2 rating results in a faster boot and smoother audio. Note that extracting the card to re-flash it requires some disassembly of the JetAuto robot (remove the arm) to get at the slot. Contact me if you are interested in access to a suitable bulk image file. 
+
+Otherwise, if you stick with the original installed memory card, there are a substantial number of downloads, substitutions, and configurations as listed below. Eventually there should be an installer script for most of this ...
 
 ### Switch to LXDE (optional)
 
