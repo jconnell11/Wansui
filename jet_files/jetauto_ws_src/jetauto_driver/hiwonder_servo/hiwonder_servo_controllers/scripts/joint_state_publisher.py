@@ -23,9 +23,8 @@ class JointStatePublisher:
         
         if machine_type != 'JetAutoPro':
             self.joints = ['joint1']
-        else:
-            self.joints = ['n_joint', 'joint1', 'joint2', 'joint3', 'joint4', 'r_joint']   # JHC: added neck
-
+        else:                                    # JHC: added neck pan and tilt
+            self.joints = ['p_joint', 't_joint', 'joint1', 'joint2', 'joint3', 'joint4', 'r_joint'] 
         self.servos = []
         self.controllers = []
         self.joint_states = {}

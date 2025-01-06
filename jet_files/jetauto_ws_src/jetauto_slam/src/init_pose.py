@@ -10,7 +10,8 @@ class InitPose:
     def __init__(self):
         rospy.init_node('init_pose')
 
-        jointn_angle = rospy.get_param('~n_joint',    0)     # JHC: add neck (-50 = front)
+        jointp_angle = rospy.get_param('~p_joint',    0)     # JHC: add pan 
+        jointt_angle = rospy.get_param('~t_joint',    0)     # JHC: add tilt
         joint1_angle = rospy.get_param('~joint1',   -70)     # degs
         joint2_angle = rospy.get_param('~joint2',  -110)     # degs
         joint3_angle = rospy.get_param('~joint3',   110)     # degs
@@ -19,7 +20,9 @@ class InitPose:
         horizontal = rospy.get_param('~horizontal', False)
         namespace = rospy.get_namespace()
 
-        jointn = rospy.Publisher('n_joint_controller/command_duration', CommandDuration, queue_size=1)   # JHC: add neck
+        # JHC: add neck pan and tilt
+        jointp = rospy.Publisher('p_joint_controller/command_duration', CommandDuration, queue_size=1)   
+        jointt = rospy.Publisher('t_joint_controller/command_duration', CommandDuration, queue_size=1)  
         joint1 = rospy.Publisher( 'joint1_controller/command_duration', CommandDuration, queue_size=1)
         joint2 = rospy.Publisher( 'joint2_controller/command_duration', CommandDuration, queue_size=1)
         joint3 = rospy.Publisher( 'joint3_controller/command_duration', CommandDuration, queue_size=1)
@@ -39,7 +42,9 @@ class InitPose:
             joint4.publish(CommandDuration(data=math.radians(31), duration=2000))
             jointr.publish(CommandDuration(data=0, duration=2000))
         else:
-            jointn.publish(CommandDuration(data=math.radians(jointn_angle), duration=2000))  # JHC: add neck
+            # JHC: add neck pan and tilt
+            jointp.publish(CommandDuration(data=math.radians(jointp_angle), duration=2000))  
+            jointt.publish(CommandDuration(data=math.radians(jointt_angle), duration=2000))  
             joint1.publish(CommandDuration(data=math.radians(joint1_angle), duration=2000))
             joint2.publish(CommandDuration(data=math.radians(joint2_angle), duration=2000))
             joint3.publish(CommandDuration(data=math.radians(joint3_angle), duration=2000))

@@ -118,3 +118,5 @@ fi
 
 source $HOME/.jetautorc
 
+# so demo can be launched from SSH
+export DISPLAY=:0.0

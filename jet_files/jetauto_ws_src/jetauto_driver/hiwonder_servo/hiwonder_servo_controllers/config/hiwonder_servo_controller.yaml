@@ -1,7 +1,18 @@
 controllers:
-  n_joint_controller:
+  p_joint_controller:
     type: JointPositionController
-    joint_name: n_joint                # JHC - neck tilt
+    joint_name: p_joint                # JHC - neck pan = 7
+    joint_speed: 1.0
+    port_id: 1
+    servo:
+      id: 7
+      init: 500
+      min: 0
+      max: 1000
+
+  t_joint_controller:
+    type: JointPositionController
+    joint_name: t_joint                # JHC - neck tilt = 6
     joint_speed: 1.0
     port_id: 1
     servo:
@@ -12,7 +23,7 @@ controllers:
 
   joint1_controller:
     type: JointPositionController
-    joint_name: joint1                 # swivel
+    joint_name: joint1                 # base swivel = 5
     joint_speed: 1.0
     port_id: 1
     servo:
@@ -23,7 +34,7 @@ controllers:
 
   joint2_controller:
     type: JointPositionController
-    joint_name: joint2                 # shoulder
+    joint_name: joint2                 # shoulder = 4
     joint_speed: 1.0
     port_id: 1
     servo:
@@ -34,7 +45,7 @@ controllers:
 
   joint3_controller:
     type: JointPositionController
-    joint_name: joint3                 # elbow
+    joint_name: joint3                 # elbow = 3
     joint_speed: 1.0
     port_id: 1
     servo:
@@ -45,7 +56,7 @@ controllers:
 
   joint4_controller:
     type: JointPositionController
-    joint_name: joint4                 # wrist
+    joint_name: joint4                 # wrist = 2
     joint_speed: 1.0
     port_id: 1
     servo:
@@ -56,7 +67,7 @@ controllers:
 
   r_joint_controller:
     type: JointPositionController
-    joint_name: r_joint                # gripper
+    joint_name: r_joint                # gripper = 1
     joint_speed: 1.0
     port_id: 1
     servo:
@@ -91,7 +102,7 @@ serial_ports:
     port_id: 1
     baud_rate: 115200
     min_motor_id: 1
-    max_motor_id: 6                      # JHC - neck also
+    max_motor_id: 7                         # JHC - neck also
     fake_read: true
-    connected_ids: [ 1, 2, 3, 4, 5, 6 ]  # JHC - neck also
-    update_rate: 15                      # JHC - 15 Hz max!
+    connected_ids: [ 1, 2, 3, 4, 5, 6, 7 ]  # JHC - neck also
+    update_rate: 15                         # JHC - 15 Hz max!
