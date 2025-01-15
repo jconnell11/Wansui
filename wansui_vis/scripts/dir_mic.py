@@ -49,7 +49,7 @@ class DirMic:
     if dev:
       mic = Tuning(dev)
     else:
-      rospy.logerr("Could not open ReSpeaker 4 Mic Array on USB")
+      rospy.loginfo("Could not open ReSpeaker 4 Mic Array on USB")
       rospy.signal_shutdown("No mic array")
 
     # main loop runs at 30 Hz
