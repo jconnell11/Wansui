@@ -9,7 +9,7 @@
 #
 # =========================================================================
 #
-# Copyright 2024 Etaoin Systems
+# Copyright 2024-2026 Etaoin Systems
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,10 +25,17 @@
 # 
 # =========================================================================
 
-import time, os
+import time, os, os.path
 import Jetson.GPIO as GPIO
 
 from jetauto_sdk import buzzer, hiwonder_servo_controller
+
+
+# helper function for playing standard sounds
+
+def PlaySFX(name):
+  cmd = "aplay -q /home/jetauto/Wansui/sfx/" + name + ".wav &"
+  os.system(cmd)
 
 
 # ----------------------------------------------------------------------- 
@@ -45,7 +52,7 @@ volt_hys = 0
 
 
 # check average battery voltage and beep if low
-# no easy way to share this with main application
+# no easy way to share this value with main application
 def check_battery():
   global voltage, volt_cnt, volt_nag, volt_hys
 
@@ -62,103 +69,136 @@ def check_battery():
   volt_cnt = 0 
     
   # if not crazy add sample to IIR filter 
-  v = servos.get_servo_vin(5) / 1000.0
+  v = servos.get_servo_vin(5) 
+  if v is None:
+    return
+  v /= 1000.0
   if v > 7.5 and v < 13.0:
     voltage += 0.2 * (v - voltage)
 
   # if too low then start beep 
-  if voltage > 10.8:                     # nearly latched
+  if voltage > 10.2:                    
     volt_hys = 0
-  elif volt_hys > 0 or voltage < 10.2:   # roughly 10% left
-    volt_hys = 1          
+  elif volt_hys > 0 or voltage < 9.9:  # roughly 10% left
+    volt_hys = 1        
+    PlaySFX("beep2")  
     buzzer.on()
-    volt_nag = 4                         # medium beep (200ms)
+    volt_nag = 4                       # medium beep (200ms)
 
 
 # ----------------------------------------------------------------------- 
 
 # configure button inputs (default to BCM mode numbers)
-key1_pin = 25
-key2_pin = 4
+mid_pin = 25                           # key1
+side_pin = 4                           # key2
 GPIO.setwarnings(False)
 if not GPIO.getmode() == GPIO.BCM:
   GPIO.setmode(GPIO.BCM)
-GPIO.setup(key1_pin, GPIO.IN)
-GPIO.setup(key2_pin, GPIO.IN)
+GPIO.setup(mid_pin, GPIO.IN)
+GPIO.setup(side_pin, GPIO.IN)
 
 
 # clear key timing state
-key1_cnt = 0
-key2_cnt = 0
+mid_cnt = 0
+side_cnt = 0
 
 
 # check state of buttons on expansion board
-# front brief = start demo, front 3 sec = <nothing>
-#  back brief = stop demo,   back 3 sec = shutdown
-def check_keys():
-  global key1_pin, key2_pin, key1_cnt, key2_cnt
+#    mid: brief = start demo, 3 sec = shutdown
+#   side: brief = stop demo,  3 sec = switch wifi
 
-  # check if key1 currently being pressed
-  if GPIO.input(key1_pin) == GPIO.LOW:
-    key1_cnt += 1
-    key2_cnt = 0
-    if key1_cnt == 60:
-      print('switch wifi mode')
-      buzzer.on()
-      time.sleep(0.4)                  # long beep
+def check_keys():
+  global mid_pin, side_pin, mid_cnt, side_cnt
+
+  # check if mid button currently being pressed
+  if GPIO.input(mid_pin) == GPIO.LOW:
+    mid_cnt += 1
+    side_cnt = 0
+    if mid_cnt == 60:
+      print('switch wifi')
+      PlaySFX("beep4")
+      buzzer.on()                      # long beep 
+      time.sleep(0.4)                  
       buzzer.off()
+      stop_demo()                      # ==> SHUTDOWN
+      os.system('sudo shutdown -h now')
+      mid_cnt = -90                    # repeat at 7.5 sec 
     return    
   
-  # key1 not currently pressed
-  if key1_cnt > 0:
+  # mid button not currently pressed
+  if mid_cnt > 0:
     print('start new demo')
-    buzzer.on()
-    time.sleep(0.1)                    # short beep
+    PlaySFX("beep_beep")
+    buzzer.on()                        # short beep
+    time.sleep(0.1)                     
     buzzer.off()
     time.sleep(0.1)
-    buzzer.on()
-    time.sleep(0.1)                    # short beep
+    buzzer.on()                        # short beep
+    time.sleep(0.1)                    
     buzzer.off()
 #    stop_demo()
-    start_demo()
-  key1_cnt = 0 
+    start_demo()                       # ==> START DEMO
+  mid_cnt = 0 
 
-  # check if key2 currently being pressed
-  if GPIO.input(key2_pin) == GPIO.LOW:
-    key2_cnt += 1
-    if key2_cnt == 60:
-      print('system shutdown')
-      buzzer.on()
-      time.sleep(0.4)                  # long beep
+  # check if side button currently being pressed
+  if GPIO.input(side_pin) == GPIO.LOW:
+    side_cnt += 1
+    if side_cnt == 60:
+      print('switch wifi')
+      PlaySFX("beep4_beep")
+      buzzer.on()                      # long beep
+      time.sleep(0.4)                  
       buzzer.off()
-      stop_demo()
-      os.system('sudo shutdown -h now')
+      time.sleep(0.2)
+      buzzer.on()                      # short beep
+      time.sleep(0.1)                    
+      buzzer.off()
+      stop_demo()                      # ==> SWITCH WIFI
+      switch_wifi()                    
+      side_cnt = -90                   # repeat at 7.5 sec
     return    
   
-  # key2 not currently pressed
-  if key2_cnt > 0:
+  # side button not currently pressed
+  if side_cnt > 0:
     print('stop any demo')
-    buzzer.on()
-    time.sleep(0.1)                    # short beep
+    PlaySFX("beep")
+    buzzer.on()                        # short beep
+    time.sleep(0.1)                    
     buzzer.off()
-    stop_demo()
-  key2_cnt = 0 
+    stop_demo()                        # ==> STOP DEMO
+  side_cnt = 0 
 
 
 # launch current demo 
 def start_demo(): 
-  os.system("screen -dm bash -c 'roslaunch wansui_act wansui_act.launch 2>/dev/null' &") 
+  os.system("screen -dm bash -c 'roslaunch wansui_vis wansui_vis.launch 2>/dev/null' &") 
 
 
 # make sure demo program has stopped cleanly
 def stop_demo():
-  os.system("rosnode kill hmore_face wansui_act")
+  os.system("rosnode kill hmore_face wansui_vis")
+
+
+# change from main to alt wifi (or vice versa)
+def switch_wifi():
+  if os.path.isfile("/home/jetauto/hiwonder-toolbox/main_wifi.py"):
+    print("  select main wifi")
+    os.system("cd /home/jetauto/hiwonder-toolbox; mv hiwonder_wifi_conf.py alt_wifi.py")
+    os.system("cd /home/jetauto/hiwonder-toolbox; mv main_wifi.py hiwonder_wifi_conf.py")
+  elif os.path.isfile("/home/jetauto/hiwonder-toolbox/alt_wifi.py"):
+    print("  select alt wifi")
+    os.system("cd /home/jetauto/hiwonder-toolbox; mv hiwonder_wifi_conf.py main_wifi.py")
+    os.system("cd /home/jetauto/hiwonder-toolbox; mv alt_wifi.py hiwonder_wifi_conf.py")
+  else:
+    print('no wifi change')
+  os.system("sudo systemctl restart hw_wifi.service")
 
 
 # =========================================================================
 
 # check buttons and voltage at 20 Hz
 if __name__ == "__main__":
+  os.system("pulseaudio -k")
   while True:
     check_battery()
     check_keys()

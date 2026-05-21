@@ -1,22 +1,7 @@
 // Homeostasis actions for somatic states
 // ================================================
 
-OP 1 - "Before announcing that you are awake look around"
-  trig:
-  ANTE[ fcn-1 -lex-  announce
-              -fcn-> act-1
-        act-1 -obj-> hq-1 
-         hq-1 -lex-  awake
-              -hq--> obj-1
-        obj-1 -lex-  me ]
------------------
-    DO[ fcn-2 -lex-  look
-              -fcn-> act-2
-        dir-1 -lex-  around
-              -dir-> act-2 ]
-
-
-OP 2 - "Before announcing that you are lonely then announce look around"
+OP 1 - "Before announcing that you are lonely look around"
   trig:
   ANTE[ fcn-1 -lex-  announce
               -fcn-> act-1
@@ -33,7 +18,7 @@ OP 2 - "Before announcing that you are lonely then announce look around"
 
 // ----------------------------------------
 
-OP 3 - "If you are lonely and someone becomes visible then hail them and approach them."
+OP 2 - "If you are lonely and someone becomes visible then hail them and approach them."
   trig:   
   NOTE[  hq-1 -lex-  lonely
               -hq--> agt-1
@@ -51,7 +36,7 @@ OP 3 - "If you are lonely and someone becomes visible then hail them and approac
         act-3 -obj-> agt-2 ] 
 
 
-OP 4 - "To hail someone say finally, someone to play with"
+OP 3 - "To hail someone say finally, someone to play with"
   trig:
     DO[ fcn-1 -lex-  hail
               -fcn-> act-1
@@ -66,7 +51,7 @@ OP 4 - "To hail someone say finally, someone to play with"
         txt-1 -str-   finally, someone to play with ]
 
 
-OP 5 - "To hail someone say hey there whoever"
+OP 4 - "To hail someone say hey there whoever"
   trig:
     DO[ fcn-1 -lex-  hail
               -fcn-> act-1
@@ -81,7 +66,7 @@ OP 5 - "To hail someone say hey there whoever"
         txt-1 -str-   hey there ?0 ]
 
 
-OP 6 - "To hail someone say good to see you whoever"
+OP 5 - "To hail someone say good to see you whoever"
   trig:
     DO[ fcn-1 -lex-  hail
               -fcn-> act-1
@@ -96,5 +81,28 @@ OP 6 - "To hail someone say good to see you whoever"
         txt-1 -str-   good to see you ?0 ]
 
 
+// ----------------------------------------
 
+OP 6 - "If you are bored you could wander"
+  trig:
+  NOTE[  hq-2 -lex-  bored
+              -hq--> obj-1
+        obj-1 -lex-  me ]
+  pref: 0.500
+-----------------
+    DO[ fcn-3 -lex-  wander
+              -fcn-> act-4 ]
+
+
+//OP 7 - "If an object is visible you could maybe grab it"
+//  trig:
+//  NOTE[   hq-3 -lex-  visible
+//               -hq--> obj-1
+//        kind-2 -lex-  object
+//               -ako-> obj-1 ]
+//  pref: 0.300
+//-----------------
+//    DO[ fcn-4 -lex-  grab
+//              -fcn-> act-5
+//        act-5 -obj-> obj-1 ]
 

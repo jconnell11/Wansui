@@ -1,12 +1,12 @@
 ## Software Installation
 
-The easiest approach is just to copy a complete system image onto a new [SD card](https://www.amazon.com/dp/B09X7C7LL1) ($11). You might want to upgrade to 64GB anyhow, as most of the original 32GB is filled up and the A2 rating results in a faster boot and smoother audio. Note that extracting the card to re-flash it requires some disassembly of the JetAuto robot (remove the arm) to get at the slot. Contact me if you are interested in access to a suitable bulk image file. 
+It is recommended that you switch the robot over to a 64GB Sandisk Extreme SD card. The __A2__ rating results in a faster boot and smoother audio, and most of the original 32GB (on the Hiwonder card) was filled up. This new card can be most conveniently programmed using the [Win32DiskImager](https://win32diskimager.org/) tool. Note that accessing the card slot, located under the front edge of the Jetson Nano mezzanine board, requires some drastic disassembly of the JetAuto robot (remove the arm)!
 
-Otherwise, if you stick with the original installed memory card, there are a substantial number of downloads, substitutions, and configurations as listed below. Eventually there should be an installer script for most of this ...
+If you are going to flash a new card anyhow, the easiest option is to download a __pre-built__ image with all the necessary software. [Contact](mailto:jconnell@alum.mit.edu) me to access the download (free). Otherwise, start by using Win32DiskImager to copy the original Hiwonder card to an image file, then burn the image file back to the new 64GB card. After this there are a substantial number of downloads, substitutions, and configurations as listed below.
 
 ### Switch to LXDE (optional)
 
-JetAuto comes with Gnome as the desktop environment, but this is a real hog for a headless machine. Switching to LXDE frees up a bunch of resources. If you want to do this, the steps are:
+JetAuto comes with Gnome as the desktop environment, but this is a real hog for a headless machine. Switching to LXDE frees up a lot of resources. If you want to do this, the steps are:
 
 1. logout using gear icon in upper right corner of desktop
 2. on login screen click gear and select LXDE then login
@@ -15,13 +15,13 @@ JetAuto comes with Gnome as the desktop environment, but this is a real hog for 
 
 ### Additions and Substitutions
 
-Start by copying over the entire Git directory to /home/jetauto/Wansui. This is the [ALIA](https://github.com/jconnell11/ALIA) reasoning library, a bunch of configuration files of various types, and some supporting ROS nodes. In particular it contains subprojects for the main ROS control node ([wansui_act](../wansui_act)) and the animated face ([hmore_face](../hmore_face)). These directory should be moved under ~/jetauto_ws/src/etaoin_sys since there can only be one active ROS workspace.
+Start by copying over the entire Git directory to /home/jetauto/Wansui. This is the [ALIA](https://github.com/jconnell11/ALIA) reasoning library, a bunch of configuration files of various types, and some supporting ROS nodes. In particular, it contains subprojects for the main ROS control node ([wansui_vis](../wansui_vis)) and the animated face ([hmore_face](../hmore_face)). These directories should be moved under ~/jetauto_ws/src/etaoin_sys since there can only be one active ROS workspace.
 
-Next, the directory [jet_files](../jet_files) contains a number of files to add or substitute for similarly named versions in various locations. You should copy the top level files (e.g. .bashrc) to /home/jetauto. However, be sure to edit [.typerc](../jet_files/.typerc) to include the network name of your machine (instead of "Benny"). All the other subdirectories are condensed versions of the full pathnames where things belong. Note that the items in [usr_local_bin](../jet_files/usr_local_bin) and [etc_systemd_system](../jet_files/etc_systemd_system) will need to be marked as executable before being moved to /usr/local/bin and /etc/systemd/system, respectively.
+Next, the directory [jet_files](../jet_files) contains a number of files to add or substitute for similarly named versions in various locations. The subdirectories are condensed versions of the full pathnames where things belong. However, all the items in [usr_local_bin](../jet_files/usr_local_bin) will need to be marked as executable before being moved to /usr/local/bin. Also be sure to edit [.typerc](../jet_files/home_jetauto/.typerc) to include the network name of your machine (instead of "Benny"). Finally, modify [hiwonder_wifi_conf](../jet_files/home_jetauto/hiwonder-toolbox/hiwonder_wifi_conf.py) and [alt_wifi](../jet_files/home_jetauto/hiwonder-toolbox/alt_wifi.py) to reflect your main wifi connection credentials and a backup network (if any).
 
 ### Configuration
 
-Configure display for full screen animated face:
+Set up display for full screen animated face:
 
 1. select hidden files in file browser (from triple dashes)
 2. edit /home/jetauto/.display.sh and add: __xrandr -o inverted__
@@ -43,7 +43,7 @@ Compile new ROS nodes:
 
     cd ~/jetauto_ws
     catkin build hmore_face
-    catkin build wansui_act
+    catkin build wansui_vis
 
 Automatic fan speed control (optional):
 
@@ -52,14 +52,12 @@ Automatic fan speed control (optional):
 3. jetson-fan-ctl-master/install.sh
 
 
-
-
 ### Microsoft Azure
 
-The system is default coded to use Microsoft Azure speech recognition, which is essentially __free__ for low intensity usage. However, you will need credentials to access this on-line service. Start by signing up [here](https://portal.azure.com/#create/Microsoft.CognitiveServicesSpeechServices) (possibly making a Microsoft account first) then select "Speech Services" and "+ Create". Finally, click "Manage keys" and modify local file [ms_azure.key](../wansui_act/config/ms_azure.key) in directory ~/jetauto_ws/src/etaoin_sys/wansui_act/config with valid "Key" and "Location" strings.
+The system is default coded to use Microsoft Azure speech recognition, which is essentially __free__ for low intensity usage. However, you will need credentials to access this on-line service. Start by signing up [here](https://portal.azure.com/#create/Microsoft.CognitiveServicesSpeechServices) (possibly making a Microsoft account first) then select "Speech Services" and "+ Create". Finally, click "Manage keys" and modify local file [ms_azure.key](../config/ms_azure.key) in directory ~/Wansui with valid "Key" and "Location" strings.
 
 ---
 
-May 2024 - Jonathan Connell - jconnell@alum.mit.edu
+May 2026 - Jonathan Connell - jconnell@alum.mit.edu
 
 

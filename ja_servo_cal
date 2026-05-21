@@ -1,0 +1,3 @@
+#!/bin/bash
+
+roslaunch wansui_vis servo_calib.launch 2>/dev/null

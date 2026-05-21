@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find hiwonder_servo_controllers)/launch/controller_manager.launch"/> 
+  <node name="grab_calib" pkg="wansui_vis" type="grab_calib.py" required="true" output="screen" />
+</launch>

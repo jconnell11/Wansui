@@ -1,0 +1,3 @@
+#!/bin/bash
+
+roslaunch wansui_vis grab_calib.launch 2>/dev/null

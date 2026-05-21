@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <launch>
   <!-- Arguments for jetauto_controller -->
-  <arg name="max_linear"      default="0.7"/>
-  <arg name="max_angular"     default="3.5"/>
-  <arg name="cmd_vel"         default="jetauto_controller/cmd_vel"/>
-  <arg name="remap_cmd_vel"   default="$(arg cmd_vel)"/>
-  <arg name="base_frame"      default="base_link"/>
+  <arg name="max_linear"      default="0.7" />
+  <arg name="max_angular"     default="3.5" />
+  <arg name="cmd_vel"         default="jetauto_controller/cmd_vel" />
+  <arg name="remap_cmd_vel"   default="$(arg cmd_vel)" />
+  <arg name="base_frame"      default="base_link" />
 
   <!-- Whether to show ALIA images (not real-time) -->
   <arg name="show" default="0" />
@@ -17,11 +17,11 @@
   <!-- Start battery monitor -->
     <node name="battery_mon" pkg="wansui_vis" type="battery_mon.py" required="true" output="screen" />
 
+  <!-- Start array microphone -->
+    <node name="mic_dir" pkg="wansui_vis" type="mic_dir.py" output="screen" />
+
   <!-- Start servo driver -->
     <include file="$(find hiwonder_servo_controllers)/launch/controller_manager.launch"/> 
-
-  <!-- Start joint monitor -->
-    <include file="$(find hiwonder_servo_controllers)/launch/joint_states_publisher.launch"/>
 
   <!-- Initialize arm pose -->
     <node name="init_pose" pkg="jetauto_slam" type="init_pose.py" output="screen"/>
@@ -30,7 +30,7 @@
     <include file="$(find jetauto_controller)/launch/jetauto_controller.launch" />
 
   <!-- Start IMU and odometry -->
-    <include file="$(find jetauto_controller)/launch/odom_publish.launch" />
+    <include file="$(find jetauto_controller)/launch/imu_odometry.launch" />
 
   <!-- Start wansui_vis node -->
     <node name="wansui_vis" pkg="wansui_vis" type="wansui_vis" cwd="node" output="screen" required="true" />

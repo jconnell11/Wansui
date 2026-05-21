@@ -5,7 +5,7 @@
 
 echo -en "\nWifi Signal strength: "
 iw wlan0 station dump | grep signal | awk '{print $2}' 
-echo -e "   -70 dbm or less  : is a weak signal and the link will drop if it gets much weaker"
+echo -e "   -70 dbm or less  : is a weak signal and the link is close to dropping"
 echo -e "   -60 dbm to -50   : is a good signal"
 echo -e "   -40 dbm or better: is a great signal"
 

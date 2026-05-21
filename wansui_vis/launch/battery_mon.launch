@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-    <node name="battery_mon" pkg="wansui_vis" type="battery_mon.py" required="true" output="screen" />
-</launch>
-

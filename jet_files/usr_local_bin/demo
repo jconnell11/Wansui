@@ -1,4 +1,3 @@
 #!/bin/bash
 
-cd /home/jetauto/Wansui
-roslaunch wansui_act wansui_act.launch 2>/dev/null
+roslaunch wansui_vis wansui_vis.launch show:=$1 2>/dev/null
