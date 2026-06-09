@@ -15,9 +15,9 @@ JetAuto comes with Gnome as the desktop environment, but this is a real hog for 
 
 ### Additions and Substitutions
 
-Start by copying over the entire Git directory to /home/jetauto/Wansui. This is the [ALIA](https://github.com/jconnell11/ALIA) reasoning library, a bunch of configuration files of various types, and some supporting ROS nodes. In particular, it contains subprojects for the main ROS control node ([wansui_vis](../wansui_vis)) and the animated face ([hmore_face](../hmore_face)). These directories should be moved under ~/jetauto_ws/src/etaoin_sys since there can only be one active ROS workspace.
+Start by copying over the entire Git directory to /home/jetauto/Wansui. This is the [ALIA](https://github.com/jconnell11/ALIA) reasoning library, a bunch of configuration files of various types, and some supporting ROS nodes. In particular, it contains subprojects for the main ROS control node ([wansui_vis](../project/wansui_vis)) and the animated face ([hmore_face](../project/hmore_face)). These directories should be moved under ~/jetauto_ws/src/etaoin_sys since there can only be one active ROS workspace.
 
-Next, the directory [jet_files](../jet_files) contains a number of files to add or substitute for similarly named versions in various locations. The subdirectories are condensed versions of the full pathnames where things belong. However, all the items in [usr_local_bin](../jet_files/usr_local_bin) will need to be marked as executable before being moved to /usr/local/bin. Also be sure to edit [.typerc](../jet_files/home_jetauto/.typerc) to include the network name of your machine (instead of "Benny"). Finally, modify [hiwonder_wifi_conf](../jet_files/home_jetauto/hiwonder-toolbox/hiwonder_wifi_conf.py) and [alt_wifi](../jet_files/home_jetauto/hiwonder-toolbox/alt_wifi.py) to reflect your main wifi connection credentials and a backup network (if any).
+Next, the directory [jet_files](../project/jet_files) contains a number of files to add or substitute for similarly named versions in various locations. The subdirectories are condensed versions of the full pathnames where things belong. However, all the items in [usr_local_bin](../project/jet_files/usr_local_bin) will need to be marked as executable before being moved to /usr/local/bin. Also be sure to edit [.typerc](../project/jet_files/home_jetauto/.typerc) to include the network name of your machine (instead of "Benny"). Finally, modify [hiwonder_wifi_conf](../project/jet_files/home_jetauto/hiwonder-toolbox/hiwonder_wifi_conf.py) and [alt_wifi](../project/jet_files/home_jetauto/hiwonder-toolbox/alt_wifi.py) to reflect your main wifi connection credentials and a backup network (if any).
 
 ### Configuration
 
@@ -54,7 +54,7 @@ Automatic fan speed control (optional):
 
 ### Microsoft Azure
 
-The system is default coded to use Microsoft Azure speech recognition, which is essentially __free__ for low intensity usage. However, you will need credentials to access this on-line service. Start by signing up [here](https://portal.azure.com/#create/Microsoft.CognitiveServicesSpeechServices) (possibly making a Microsoft account first) then select "Speech Services" and "+ Create". Finally, click "Manage keys" and modify local file [ms_azure.key](../config/ms_azure.key) in directory ~/Wansui with valid "Key" and "Location" strings.
+The system is default coded to use Microsoft Azure speech recognition, which is essentially __free__ for low intensity usage. However, you will need credentials to access this on-line service. Start by signing up [here](https://portal.azure.com/#create/Microsoft.CognitiveServicesSpeechServices) (possibly making a Microsoft account first) then select "Speech Services" and "+ Create". Finally, click "Manage keys" and modify local file [ms_azure.key](../project/config/ms_azure.key) in directory ~/Wansui with valid "Key" and "Location" strings.
 
 ---
 

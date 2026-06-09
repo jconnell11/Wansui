@@ -10,11 +10,11 @@ To further refine the calibration, follow up by running the related command belo
 
     ./ja_grab_cal
 
-Both these utilities will automatically write new values to the configuration file [Benny_servo](../config/Benny_servo.yaml) (or whatever your robot's name is). 
+Both these utilities will automatically write new values to the configuration file [Benny_servo](../project/config/Benny_servo.yaml) (or whatever your robot's name is). 
 
 ## Range Sensor
 
-Accurate pointing of the Orbbec sensor is needed for proper hand-eye coordination and is controlled by the [Benny_cam](../config/Benny_cam.cal) file (or whatever your robot's name is). The file has a single line beginning with "grok_cal" whose fields are as shown below. The first 3 values are for the range image while the second 3 values are for the color image. You must edit this file manually.
+Accurate pointing of the Orbbec sensor is needed for proper hand-eye coordination and is controlled by the [Benny_cam](../project/config/Benny_cam.cal) file (or whatever your robot's name is). The file has a single line beginning with "grok_cal" whose fields are as shown below. The first 3 values are for the range image while the second 3 values are for the color image. You must edit this file manually.
 
     grok_cal  rng_pan rng_tilt rng_roll  col_pan col_tilt col_roll
 
