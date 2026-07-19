@@ -1,5 +1,5 @@
 # Wansui
-## Mobile Manipulator with Face
+## Symbolic AI Robot with Face
 
 Add verbal interaction and symbolic learning to a relatively inexpensive mobile robot with an arm and 3D sensing! This robot is a somewhat modified version of the commercially available __JetAuto Pro__ from [Hiwonder](https://www.hiwonder.com) and can be assembled for under $1400 (much cheaper than [LoCoBot](https://robotshopshop-dev.myshopify.com/products/locobot-px100)). The system is based on the [ALIA](https://github.com/jconnell11/ALIA) cognitive library and runs with ROS on a Jetson Nano under Ubuntu. It also sports an animated [face](https://github.com/jconnell11/hmore_face), as shown in this [__video__](https://youtu.be/DcIPQSiz_0I).
 
