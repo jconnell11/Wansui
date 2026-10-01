@@ -24,7 +24,7 @@ Now find the big flat metal servo bracket and orient it so the longer sides poke
 
 Next, there are two long vertical bars that form the sides of the back arch. On each of these, carefully drill an 11/64" diameter back-to-front thru-hole exactly __37mm__ down from the top end of the bar itself (not from the top of the plastic cap). Use two leftover M4x20 screws ("bolt" in the picture below) to affix the LCD panel to front of the side bars so that it extends upwards significantly past the ends of the bars. 
 
-The panel should have its connectors at the top left when viewed from behind (see below). Install the left-angle HDMI cable at the top, and right-angle USB cable direclty below this. Route the cables down the creases in the side bars and connect them to the ports at the back of the Jetson Nano. A band of electrical tape around the side bar can help keep the cables in place.
+The panel should have its connectors at the top left when viewed from behind (see below). Install the left-angle HDMI cable at the top, and right-angle USB cable directly below this. Route the cables down the creases in the side bars and connect them to the ports at the back of the Jetson Nano. A band of electrical tape around the side bar can help keep the cables in place.
 
 ![Screen and Neck](Benny_back2_mark.jpg)
 
@@ -38,7 +38,7 @@ To complete the assembly, secure the HTD-35H __tilt servo__ in the upwards point
 
 ### Sound Card and Speaker
 
-Use [Gorilla](https://www.amazon.com/Gorilla-Heavy-Double-Sided-Mounting/dp/B082TQ3KB5) double-sided tape to affix the one of the small rectangluar speakers to the back of the pan servo __above__ its rear connector jack. It should be flush with the top and right edges of the servo and have its wires coming out to the left (see picture above). Plug the connector into the end of the Waveshare audio dongle then use more Gorilla tape to mount the dongle to the back of the LCD panel, shoved all the way to the lefgt along the top bar of the arch. Attach the male-female USB extender cable to the right side of the dongle and route it along a crease in the right side bar down to a rear USB connector on the Jetson Nano board.
+Use [Gorilla](https://www.amazon.com/Gorilla-Heavy-Double-Sided-Mounting/dp/B082TQ3KB5) double-sided tape to affix the one of the small rectangular speakers to the back of the pan servo __above__ its rear connector jack. It should be flush with the top and right edges of the servo and have its wires coming out to the left (see picture above). Plug the connector into the end of the Waveshare audio dongle then use more Gorilla tape to mount the dongle to the back of the LCD panel, shoved all the way to the left along the top bar of the arch. Attach the male-female USB extender cable to the right side of the dongle and route it along a crease in the right side bar down to a rear USB connector on the Jetson Nano board.
 
 ### Servo Wiring
 
